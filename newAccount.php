@@ -115,7 +115,7 @@ if (isset($_POST['addMeBtn'])) {
 
                                         <div class="mb-3">
 											<label class="form-label">Phone Number</label>
-											<input required class="form-control form-control-lg" type="number" name="phone" placeholder="Enter your email" />
+											<input required class="form-control form-control-lg" type="number" name="phone" placeholder="Enter your Phone Number" />
 										</div>
 
 										<div class="mb-3">

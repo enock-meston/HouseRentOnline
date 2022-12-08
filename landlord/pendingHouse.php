@@ -5,24 +5,47 @@ $msg = "";
 include('../includes/config.php');
 
 error_reporting(0);
-if (strlen($_SESSION['cID']) == 0) {
-    header('location:../tenantLogin.php');
+if (strlen($_SESSION['landID']) == 0) {
+    header('location:../landlord.php');
 } else {
 
-    if ($_GET['delete']) {
-        $houseReference = $_GET['delete'];
-        $query = mysqli_query($con, "UPDATE `tbl_house` SET `status`='1' WHERE reference='$houseReference'");
-
-        
-        if ($query) {
+    // check if auth Was Appro
+    if (isset($_GET['appro'])) {
+        $requestID1 = $_GET['appro'];
+    $query = mysqli_query($con, "SELECT * FROM requesttable WHERE statusAuthority IS NULL AND reqID='$requestID1'");
+            $count = mysqli_num_rows($query);
+            if ($count == false) {
+                // 
+                if ($_GET['appro']) {
+                    $requestID = $_GET['appro'];
+                    $query = mysqli_query($con, "UPDATE requesttable SET statusLandlord='success',status='1' WHERE reqID='$requestID'");
+                    
+                    if ($query) {
+                        $msg = "Request Approved";
+                        
+                        header('location: pendingHouse.php');
+                    } else {
+                        $error = "Something went wrong . Please try again.";
+                    }
+                }
             
-            mysqli_query($con, "DELETE FROM requesttable WHERE houseReference='$houseReference'");
-            $msg = "Request deleted";
-            header('location:MyhousesList.php');
-        } else {
-            $error = "Something went wrong . Please try again.";
-        }
+            
+                if ($_GET['reject']) {
+                    $requestID = $_GET['reject'];
+                    $query = mysqli_query($con, "UPDATE requesttable SET statusLandlord='rejected' WHERE reqID='$requestID'");
+                    if ($query) {
+                        $msg = "Request rejected";
+                        header('location: pendingHouse.php');
+                    } else {
+                        $error = "Something went wrong . Please try again.";
+                    }
+                }
+            } else {
+                $error = "Wait for Authority To Approve this Request";
+            }
     }
+    
+    
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +64,7 @@ if (strlen($_SESSION['cID']) == 0) {
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>Authority</title>
 
     <link href="../static/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -63,7 +86,26 @@ if (strlen($_SESSION['cID']) == 0) {
                                 <div class="card-header">
                                     <h5 class="card-title mb-0">Request</h5>
                                 </div>
+
                                 <div class="card-body">
+
+                                    <!-- message -->
+                                    <div class="col-sm-12">
+                                        <!---Success Message--->
+                                        <?php if ($msg) { ?>
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                                        </div>
+                                        <?php } ?>
+
+                                        <!---Error Message--->
+                                        <?php if ($error) { ?>
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    <!-- end of message -->
                                     <!-- tables -->
 
                                     <table class="table table-hover my-0">
@@ -80,14 +122,13 @@ if (strlen($_SESSION['cID']) == 0) {
                                                 <th>cell</th>
                                                 <th>Landlord's response</th>
                                                 <th>Authority's response</th>
-                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 $selectUsers = mysqli_query($con,"SELECT *,requesttable.status as staReq FROM requesttable LEFT JOIN tbl_house ON 
-                                                tbl_house.reference = requesttable.houseReference WHERE requesttable.clientID = '".$_SESSION['cID']."'");
+                                                tbl_house.reference = requesttable.houseReference");
                                                 $number=1;
                                                while ($row = mysqli_fetch_array($selectUsers)) {
 
@@ -119,53 +160,43 @@ if (strlen($_SESSION['cID']) == 0) {
 
                                                 <td class="d-none d-xl-table-cell">
                                                     <?php 
-                                                    if ($row['statusLandlord'] == "success") {
-                                                        echo "<span class='badge bg-success'>Accepted</span>";
-                                                    }elseif ($row['statusLandlord'] == "rejected") {
-                                                        echo "<span class='badge bg-danger'>Rejected</span>";
-                                                     }else {
-                                                        echo "<span class='badge bg-warning'>Pending</span>";
-                                                    }
-                                                    ?>
-                                                </td>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <?php 
-                                                         if ($row['statusAuthority'] == "success") {
+                                                         if ($row['statusLandlord'] == "success") {
                                                              echo "<span class='badge bg-success'>Accepted</span>";
-                                                         }elseif ($row['statusAuthority'] == "rejected") {
+                                                         }elseif($row['statusLandlord'] == "rejected"){
                                                             echo "<span class='badge bg-danger'>Rejected</span>";
-                                                         }
-                                                         else {
+                                                         }else {
                                                              echo "<span class='badge bg-warning'>Pending</span>";
                                                          }
                                                          ?>
                                                 </td>
-                                                </td>
+
                                                 <td class="d-none d-xl-table-cell">
-                                                    <?php if ( $row['staReq'] == 2) {
-                                                        echo "<span class='badge bg-success'>Done</span>";
-                                                            }elseif ($row['staReq'] == 1) {
-                                                                echo "<span class='badge bg-info'>Now you can Pay</span>";
-                                                            }
-                                                            else {
+                                                    <?php 
+                                                         if ($row['statusAuthority'] == "success") {
+                                                             echo "<span class='badge bg-success'>Accepted</span>";
+                                                         }elseif($row['statusAuthority'] == "rejected"){
+                                                            echo "<span class='badge bg-danger'>Rejected</span>";
+                                                         }else {
                                                              echo "<span class='badge bg-warning'>Pending</span>";
-                                                                }
-                                                    ?>
+                                                         }
+                                                         ?>
                                                 </td>
                                                 <td>
-                                                    <?php
-                                                    if ($row['staReq'] == 1 AND $row['statusLandlord'] == "success") {
-                                                        echo "<a href='pay.php?requesthouseReference=".$row['houseReference']."'><span class='badge bg-primary'>Click to Pay</span></a>";
-                                                        echo "<a href='MyhousesList.php?delete=".$row['houseReference']."'><span class='badge bg-info'>Click to Cancel</span></a>";
-                                                    }elseif ($row['statusLandlord'] == "rejected") {
-                                                        echo "<span class='badge bg-danger'>Rejected</span>";
-                                                     }
-                                                    else {
-                                                       
-                                                        echo "<span class='badge bg-info'>Wait From Approve</span>";
-                                                    }
-                                                    ?>
+                                                    <?php 
+                                                         if ($row['statusLandlord'] == "success") {
+                                                             echo "<span class='badge bg-success'>Accepted</span>";
+                                                         }
+                                                         else {
+                                                             echo "<a href='pendingHouse.php?appro=".$row['reqID']."'><span class='badge bg-primary'>
+                                                             Approve
+                                                             </span></a>";
+
+                                                                echo "<a href='pendingHouse.php?reject=".$row['reqID']."'><span class='badge bg-danger'>
+                                                                Reject
+                                                                </span></a>";
+
+                                                         }
+                                                         ?>
                                                 </td>
                                             </tr>
                                             <?php

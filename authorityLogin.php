@@ -21,7 +21,15 @@ if (isset($_POST['LoginBTN'])) {
             $_SESSION['AuuserType'] = $row['userType'];
             $_SESSION['Auemail'] = $row['email'];
 
-            header("location: authority/index.php");
+            
+
+            if ($_SESSION['AuuserType'] == "authorit") {
+                header("location: authority/index.php");
+           } else {
+               session_unset();
+               session_destroy();
+               header("location: landlord.php");
+           }
         }else {
             $error = "Password does not match with any of account , Please try again later!!";
         }

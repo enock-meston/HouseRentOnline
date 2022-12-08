@@ -222,7 +222,7 @@ $me = $_SESSION['landID'];
                                                                             </thead>
                                                                             <tbody>
                                                                                 <?php
-                                                                                    $selectUsers = mysqli_query($con,"SELECT * FROM `tbl_house` WHERE status=1");
+                                                                                    $selectUsers = mysqli_query($con,"SELECT * FROM `tbl_house`");
                                                                                     $number=1;
                                                                                     while ($row = mysqli_fetch_array($selectUsers)) {
 
@@ -238,7 +238,12 @@ $me = $_SESSION['landID'];
                                                                                     <td class="d-none d-xl-table-cell">
                                                                                         <?php if ( $row['status'] == 1) {
                                                                                             echo "<span class='badge bg-success'>Active</span>";
-                                                                                        }else {
+                                                                                        }elseif ($row['status'] == 2) {
+                                                                                            echo "<span class='badge bg-info'>the house was requested</span>";
+                                                                                        }elseif ($row['status'] == 3) {
+                                                                                            echo "<span class='badge bg-info'>the house has been taken over</span>";
+                                                                                        }
+                                                                                        else {
                                                                                             echo "<span class='badge bg-danger'>Inactive</span>";
                                                                                         }
                                                                                         ?></td>

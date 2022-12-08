@@ -108,7 +108,8 @@ if (isset($_POST['LoginBTN'])) {
                                         </div>
 
                                         <div class="text-center mt-3">
-                                        <input type="submit" value="Sign In" name="LoginBTN" class="btn btn-primary">
+                                            <input type="submit" value="Sign In" name="LoginBTN"
+                                                class="btn btn-primary">
                                             <!-- <input type="submit" value="login" name="loginBtn" class="btn btn-primary"> -->
                                             <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                         </div>

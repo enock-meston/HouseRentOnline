@@ -23,6 +23,14 @@
                     </li>
 
                     <li class="sidebar-item">
+                        <a class="sidebar-link" href="pendingHouse.php">
+                            <i class="align-middle" data-feather="wind"></i> <span class="align-middle">Requests</span>
+                        </a>
+                    </li>
+
+                    
+
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="MyhousesList.php">
                             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Report</span>
                         </a>

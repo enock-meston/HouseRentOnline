@@ -14,11 +14,11 @@ if (isset($_POST['LoginBTN'])) {
             $row = mysqli_fetch_array($select);
             $db_password = $row['password'];
         if (password_verify(mysqli_real_escape_string($con, trim($_POST['password'])), $db_password)) {
-            $_SESSION['AuID'] = $row['cli_id'];
+            $_SESSION['AuID'] = $row['uid'];
             $_SESSION['Aufirstname'] = $row['fname'];
             $_SESSION['Aulastname'] = $row['lname'];
             $_SESSION['Auphone'] = $row['phone'];
-            $_SESSION['card'] = $row['ID_CardNumber'];
+            $_SESSION['AuuserType'] = $row['userType'];
             $_SESSION['Auemail'] = $row['email'];
 
             header("location: authority/index.php");

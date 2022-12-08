@@ -17,21 +17,8 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="house.php">
-                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Houses</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="MyhousesList.php">
-                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Report</span>
-                        </a>
-                    </li>
-
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="contract.php">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Contracts</span>
+                        <a class="sidebar-link" href="requestHouse.php">
+                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Request</span>
                         </a>
                     </li>
 

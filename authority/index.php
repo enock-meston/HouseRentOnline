@@ -5,8 +5,8 @@ $msg = "";
 include('../includes/config.php');
 
 error_reporting(0);
-if (strlen($_SESSION['cID']) == 0) {
-    header('location:../tenantLogin.php');
+if (strlen($_SESSION['AuID']) == 0) {
+    header('location:../authorityLogin.php');
 } else {
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ if (strlen($_SESSION['cID']) == 0) {
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>Authority</title>
 
     <link href="../static/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -59,8 +59,8 @@ if (strlen($_SESSION['cID']) == 0) {
                                                 <div class="card-body py-3">
                                                     <div class="chart chart-sm">
                                                         <h1>Mr/Mrs
-                                                            <?php echo $_SESSION['cfirstname']." ".$_SESSION['clastname'];?>,
-                                                            Welcome to House Renting Web Application</h1>
+                                                            <?php echo $_SESSION['Aufirstname']." ".$_SESSION['Aulastname'];?>,
+                                                            as  <?php echo $_SESSION['AuuserType'];?> Welcome to House Renting Web Application</h1>
                                                     </div>
                                                 </div>
                                             </div>

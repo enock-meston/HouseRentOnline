@@ -53,19 +53,20 @@ if (strlen($_SESSION['cID']) == 0) {
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 col-md-6">
+                                        <?php 
+                                            $sql = mysqli_query($con,"SELECT * FROM `tbl_house` WHERE status=1 LIMIT 4");
+                                            while($row = mysqli_fetch_array($sql)){
+                                        ?>
                                             <div class="card">
-                                                <img class="card-img-top" src="../static/img/photos/unsplash-1.jpg"
+                                                <img class="card-img-top" src="../landlord/<?php echo $row['thumbnailPath'];?>"
                                                     alt="Unsplash">
                                                 <div class="card-header">
-                                                    <h5 class="card-title mb-0">Card with image and links</h5>
+                                                    <h5 class="card-title mb-0">Number: <?php echo $row['houseNumber'];?></h5>
+                                                    <h5 class="card-title mb-0">Price: <?php echo $row['price'];?></h5>
                                                 </div>
-                                                <div class="card-body">
-                                                    <p class="card-text">Some quick example text to build on the card
-                                                        title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="card-link">Card link</a>
-                                                    <a href="#" class="card-link">Another link</a>
-                                                </div>
+                                                    <a href="viewOneHouse.php?houseRef=<?php echo $row['reference'];?>" class="card-link">View More</a>
                                             </div>
+                                        <?php } ?>
                                         </div>
                                     </div>
                                 </div>

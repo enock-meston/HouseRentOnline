@@ -20,43 +20,51 @@ $me = $_SESSION['landID'];
         $cell = $_POST['cell'];
         $status = 1;
 
-
+        $checkNumber = mysqli_query($con,"SELECT * FROM tbl_house WHERE houseNumber='$number'");
+        $countHouse = mysqli_num_rows($checkNumber);
+        if ($countHouse < 1) {
            // images
-    $img_name = $_FILES['my_image']['name'];
-    $img_size = $_FILES['my_image']['size'];
-    $tmp_name = $_FILES['my_image']['tmp_name'];
-    $error = $_FILES['my_image']['error'];
+            $img_name = $_FILES['my_image']['name'];
+            $img_size = $_FILES['my_image']['size'];
+            $tmp_name = $_FILES['my_image']['tmp_name'];
+            $error = $_FILES['my_image']['error'];
 
-    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-	$img_ex_lc = strtolower($img_ex);
-    $allowed_exs = array("jpg","png");
-    if (in_array($img_ex_lc,$allowed_exs)) {
-            $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-			$img_upload_path = 'thurmbnail/'.$new_img_name;
-            
-             if (move_uploaded_file($tmp_name, $img_upload_path)) {
-                 $imageSize = getimagesize("$img_upload_path");
-				if ($imageSize[0]!=800 AND $imageSize[1] != 533) {
-					$error = "Image Must Have Width of 800 pixel AND Heigth of 533 pixel";
-				}else{
-                    $reference=date("i").rand(9999, 10000000);
-                $query= mysqli_query($con,"INSERT INTO `tbl_house`(`title`, `price`,`Province`,`District`, `Sector`, `details`, 
-                `path_thumbnail`,`owner`,`reference`, `status`) VALUES ('$title','$price','$province','$district','$sector','$details',
-                '$img_upload_path','$me','$reference','$status')");
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc = strtolower($img_ex);
+            $allowed_exs = array("jpg","png");
+            if (in_array($img_ex_lc,$allowed_exs)) {
+                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                    $img_upload_path = 'thurmbnail/'.$new_img_name;
+                    
+                    if (move_uploaded_file($tmp_name, $img_upload_path)) {
+                        $imageSize = getimagesize("$img_upload_path");
+                        if ($imageSize[0]!=800 AND $imageSize[1] != 533) {
+                            $error = "Image Must Have Width of 800 pixel AND Heigth of 533 pixel";
+                        }else{
+                            $reference=date("i").rand(9999, 10000000);
+                            $query= mysqli_query($con,"INSERT INTO `tbl_house`(`reference`, 
+                            `houseNumber`, `price`, `district`, `sector`, `village`, `cell`,
+                            `owner`, `details`, `thumbnailPath`,`status`) VALUES ('$reference',
+                            '$number','$price','$district','$sector','$village',
+                            '$cell','$me','$details','$img_upload_path','$status')");
 
-                if ($query) {
-                    $msg ="House saved";
-                    // header("location: house.php");
-                } else {
-                    $error ="Not Saved";
+                            if ($query) {
+                                $msg ="House saved";
+                                // header("location: house.php");
+                            } else {
+                                $error ="Not Saved";
+                            }
+                        }
+                    }else {
+                        $error ="Not uploaded!";
+                    }
                 }
-                }
-             }else {
-                $error ="Not uploaded!";
-             }
-            }
         
     }
+    else{
+        $error ="House Number already exist";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,7 +180,8 @@ $me = $_SESSION['landID'];
                                                                     <h5 class="card-title mb-0">More Details</h5>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <textarea required="" name="details" class="form-control" rows="2"
+                                                                    <textarea required="" name="details"
+                                                                        class="form-control" rows="2"
                                                                         placeholder="More Details"></textarea>
                                                                 </div>
                                                             </div>
@@ -200,8 +209,47 @@ $me = $_SESSION['landID'];
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="col mt-0">
-                                                                        <h5 class="card-title">List</h5>
+                                                                        <h5 class="card-title"> HouseList</h5>
+                                                                        <table class="table table-hover my-0">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>N0</th>
+                                                                                    <th>House Number</th>
+                                                                                    <th class="d-none d-xl-table-cell">
+                                                                                        Price</th>
+                                                                                    <th>Status</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                    $selectUsers = mysqli_query($con,"SELECT * FROM `tbl_house` WHERE status=1");
+                                                                                    $number=1;
+                                                                                    while ($row = mysqli_fetch_array($selectUsers)) {
 
+                                                                                        ?>
+                                                                                <tr>
+                                                                                    <td><?php echo $number;?></td>
+                                                                                    <td class="d-none d-xl-table-cell">
+                                                                                        <?php echo $row['houseNumber'];?>
+                                                                                    </td>
+                                                                                    <td class="d-none d-xl-table-cell">
+                                                                                        <?php echo $row['price'];?></td>
+                                                                                    </td>
+                                                                                    <td class="d-none d-xl-table-cell">
+                                                                                        <?php if ( $row['status'] == 1) {
+                                                                                            echo "<span class='badge bg-success'>Active</span>";
+                                                                                        }else {
+                                                                                            echo "<span class='badge bg-danger'>Inactive</span>";
+                                                                                        }
+                                                                                        ?></td>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <?php
+                                                                                    $number+=1;
+                                                                                        }
+                                                                                    ?>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
 
                                                                 </div>

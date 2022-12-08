@@ -116,6 +116,9 @@ if (isset($_POST['LoginBTN'])) {
                                     <br>
                                     <hr>
                                     <a href="newAccount.php"> Have an Account? if no New Account</a>
+                                    <br>
+                                    <hr>
+                                    <a href="index.php"> Back to Home</a>
                                 </div>
                             </div>
                         </div>

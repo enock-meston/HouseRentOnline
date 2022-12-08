@@ -1,3 +1,7 @@
+<?php
+include 'includes/config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +44,39 @@
                                     <h5 class="card-title mb-0">Empty card</h5>
                                 </div>
                                 <div class="card-body">
+                                <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Make your Choise!</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        
+                                        <div class="col-12 col-md-6"><?php 
+                                            $sql = mysqli_query($con,"SELECT * FROM `tbl_house` WHERE status=1 LIMIT 4");
+                                            while($row = mysqli_fetch_array($sql)){
+                                        ?>
+                                            <div class="card">
+                                                <img class="card-img-top" src="landlord/<?php echo $row['thumbnailPath'];?>"
+                                                    alt="Unsplash">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">House Number: <?php echo $row['houseNumber'];?></h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text">Price:  <?php echo $row['price'];?></p>
+                                                    <a href="tenant/house.php" class="card-link">View</a>
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                                 </div>
                             </div>
                         </div>

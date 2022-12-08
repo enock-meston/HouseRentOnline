@@ -8,6 +8,7 @@ error_reporting(0);
 if (strlen($_SESSION['cID']) == 0) {
     header('location:../tenantLogin.php');
 } else {
+    $ref = $_GET['requesthouseReference'];
 
     if (isset($_POST['pay'])) {
         $price= $_POST['price'];
@@ -29,8 +30,18 @@ $status = "pending";
 $message = $pay->message;
 
 
- $sql1= mysqli_query($con, "INSERT INTO `tbl_payrequest`(`phone`, `amount`, `Transactionref`,`status`) 
- VALUES ('$phone1','$price','$transID','$status')");
+ $sql1= mysqli_query($con, "INSERT INTO `tbl_payrequest`(`client_ID`,`houseReference`,`phone`, `amount`, `Transactionref`,`status`) 
+ VALUES ('".$_SESSION['cID']."','$ref','$phone1','$price','$transID','$status')");
+if ($sql1) {
+    mysqli_query($con, "UPDATE `tbl_house` SET `status`='3' WHERE `reference`='$ref'");
+    mysqli_query($con, "UPDATE `requesttable` SET `status`='2' WHERE `houseReference`='$ref'");
+    $msg = "Payment Request Sent";
+    
+}else{
+    $error = "Payment Request Failed";
+}
+
+
 ?>
 <script type="text/javascript">
     windol.alert('<?php echo addslashes($message); ?>');
@@ -83,8 +94,27 @@ $message = $pay->message;
                                     <!-- payment process -->
                                     <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                                         <div class="d-table-cell align-middle">
+                                            <!-- message block -->
+                                            <div class="col-sm-12">
+                                                        <!---Success Message--->
+                                                        <?php if ($msg) { ?>
+                                                        <div class="alert alert-success" role="alert">
+                                                            <strong>Well done!</strong>
+                                                            <?php echo htmlentities($msg); ?>
+                                                        </div>
+                                                        <?php } ?>
+
+                                                        <!---Error Message--->
+                                                        <?php if ($error) { ?>
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <strong>Oh snap!</strong>
+                                                            <?php echo htmlentities($error); ?>
+                                                        </div>
+                                                        <?php } ?>
+                                                    </div>
+                                        <!--  -->
                                             <?php 
-                                                $ref = $_GET['requesthouseReference'];
+                                                
                                                 $sql = mysqli_query($con,"SELECT * FROM tbl_house WHERE reference = '$ref'");
                                                 $row = mysqli_fetch_array($sql);
                                                 $price = $row['price'];

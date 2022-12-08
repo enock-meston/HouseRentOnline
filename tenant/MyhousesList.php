@@ -158,6 +158,11 @@ if (strlen($_SESSION['cID']) == 0) {
                                                     if ($row['staReq'] == 1 AND $row['statusLandlord'] == "success") {
                                                         echo "<a href='pay.php?requesthouseReference=".$row['houseReference']."'><span class='badge bg-primary'>Click to Pay</span></a>";
                                                         echo "<a href='MyhousesList.php?delete=".$row['houseReference']."'><span class='badge bg-info'>Click to Cancel</span></a>";
+                                                    }elseif ($row['staReq'] == 2) {
+                                                        echo "<span class='badge bg-success'>Done</span>";
+                                                        ?>
+                                                           <a href="doc.php?doc=<?php echo $row['houseReference'];?>" title="Generate Contract"><span class='badge bg-dark' data-feather="download">h </span></a> 
+                                                        <?php
                                                     }elseif ($row['statusLandlord'] == "rejected") {
                                                         echo "<span class='badge bg-danger'>Rejected</span>";
                                                      }

@@ -14,14 +14,14 @@ if (isset($_POST['LoginBTN'])) {
             $row = mysqli_fetch_array($select);
             $db_password = $row['password'];
         if (password_verify(mysqli_real_escape_string($con, trim($_POST['password'])), $db_password)) {
-            $_SESSION['AuID'] = $row['cli_id'];
-            $_SESSION['Aufirstname'] = $row['fname'];
-            $_SESSION['Aulastname'] = $row['lname'];
-            $_SESSION['Auphone'] = $row['phone'];
-            $_SESSION['card'] = $row['ID_CardNumber'];
-            $_SESSION['Auemail'] = $row['email'];
+            $_SESSION['landID'] = $row['uid'];
+            $_SESSION['landfirstname'] = $row['fname'];
+            $_SESSION['landlastname'] = $row['lname'];
+            $_SESSION['landphone'] = $row['phone'];
+            $_SESSION['userType'] = $row['userType'];
+            $_SESSION['landemail'] = $row['email'];
 
-            header("location: authority/index.php");
+            header("location: landlord/index.php");
         }else {
             $error = "Password does not match with any of account , Please try again later!!";
         }
@@ -64,7 +64,7 @@ if (isset($_POST['LoginBTN'])) {
                     <div class="d-table-cell align-middle">
 
                         <div class="text-center mt-4">
-                            <h1 class="h2">Welcome back, Authority</h1>
+                            <h1 class="h2">Welcome back, LandLord</h1>
                             <p class="lead">
                                 Sign in to your account to continue
                             </p>

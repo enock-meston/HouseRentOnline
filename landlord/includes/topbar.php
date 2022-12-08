@@ -12,15 +12,13 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown"> <span
-                        class="text-dark">Account</span>
+                        class="text-dark"><i class="align-middle me-1" data-feather="settings"></i>Settings</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="tenantLogin.php"><i class="align-middle me-1"
-                            data-feather="log-in"></i>Tenant</a>
-                    <a class="dropdown-item" href="authorityLogin.php"><i class="align-middle me-1"
-                            data-feather="log-in"></i>Authority</a>
-                            <a class="dropdown-item" href="landlord.php"><i class="align-middle me-1"
-                            data-feather="log-in"></i>LandLord</a>
+                    <a class="dropdown-item" href="pages-profile.php"><i class="align-middle me-1"
+                            data-feather="user"></i> Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout.php">Log out</a>
 
                 </div>
             </li>

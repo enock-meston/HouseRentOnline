@@ -19,7 +19,7 @@ include 'includes/config.php';
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
-    <title>Blank Page | AdminKit Demo</title>
+    <title>Home</title>
 
     <link href="static/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@ include 'includes/config.php';
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0">Empty card</h5>
+                                    <h5 class="card-title mb-0">Houses</h5>
                                 </div>
                                 <div class="card-body">
                                 <div class="row">
@@ -52,11 +52,11 @@ include 'includes/config.php';
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        
-                                        <div class="col-12 col-md-6"><?php 
+                                        <?php 
                                             $sql = mysqli_query($con,"SELECT * FROM `tbl_house` WHERE status=1 LIMIT 4");
                                             while($row = mysqli_fetch_array($sql)){
                                         ?>
+                                        <div class="col-12 col-md-6">
                                             <div class="card">
                                                 <img class="card-img-top" src="landlord/<?php echo $row['thumbnailPath'];?>"
                                                     alt="Unsplash">
@@ -68,9 +68,9 @@ include 'includes/config.php';
                                                     <a href="tenant/house.php" class="card-link">View</a>
                                                 </div>
                                             </div>
-                                            <?php } ?>
+                                            
                                         </div>
-                                        
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

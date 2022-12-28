@@ -26,7 +26,7 @@ if (strlen($_SESSION['cID']) == 0) {
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+    <title>home</title>
 
     <link href="../static/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -68,7 +68,7 @@ if (strlen($_SESSION['cID']) == 0) {
                                         <div class="col-xl-6 col-xxl-5 d-flex">
                                             <div class="w-100">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <!-- <div class="col-sm-6">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -92,8 +92,8 @@ if (strlen($_SESSION['cID']) == 0) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
+                                                    </div> -->
+                                                    <!-- <div class="col-sm-6">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -117,7 +117,7 @@ if (strlen($_SESSION['cID']) == 0) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

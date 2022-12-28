@@ -3,15 +3,14 @@ session_start();
 $error = "";
 $msg = "";
 include('../includes/config.php');
-
-// error_reporting(0);
-if (strlen($_SESSION['cID']) == 0) {
-    header('location:../tenantLogin.php');
+if (strlen($_SESSION['aID']) == 0) {
+    header('location:index.php');
 } else {
     ?>
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- <?php include 'includes/header.php';?> -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +39,7 @@ if (strlen($_SESSION['cID']) == 0) {
             <main class="content">
                 <div class="container-fluid p-0">
 
-                    <h1 class="h3 mb-3">Profilw</h1>
+                    <h1 class="h3 mb-3">Profile</h1>
 
                     <div class="row">
                         <div class="col-12">
@@ -52,14 +51,21 @@ if (strlen($_SESSION['cID']) == 0) {
                                     <div class="card-body text-center">
                                         <img src="../static/img/avatars/avatar-4.jpg" alt="Christina Mason"
                                             class="img-fluid rounded-circle mb-2" width="128" height="128" />
-                                        <h5 class="card-title mb-0"><?php echo $_SESSION['cfirstname'] ." - ".$_SESSION['clastname'];?> </h5>
-                                        <!-- <div class="text-muted mb-2">Lead Developer</div> -->
+                                        <h5 class="card-title mb-0"><?php echo $_SESSION['aUsername'];?> </h5>
+                                        <!-- <div class="text-muted mb-2"><?php echo $_SESSION['cemail'];?></div> -->
 
                                         <!-- <div>
-                                            <a class="btn btn-primary btn-sm" href="#">Follow</a>
-                                            <a class="btn btn-primary btn-sm" href="#"><span
-                                                    data-feather="message-square"></span> Message</a>
+                                            <a class="btn btn-primary btn-sm" href="edit.php"><span data-feather="edit-2"></span> edit</a>
                                         </div> -->
+                                        <hr>
+
+                                        <!--  -->
+                                        <!-- <div>
+                                            <a class="btn btn-primary btn-sm" href="change-password.php"><span data-feather="lock"></span>
+                                                Change Password</a>
+                                        </div> -->
+
+
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +75,8 @@ if (strlen($_SESSION['cID']) == 0) {
                 </div>
             </main>
 
-            <?php include 'includes/footer.php'; ?>
+
+            <?php include '../includes/footer.php'; ?>
         </div>
 
 
@@ -79,7 +86,4 @@ if (strlen($_SESSION['cID']) == 0) {
 </body>
 
 </html>
-
-<?php 
-}
-?>
+<?php } ?>

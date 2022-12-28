@@ -68,7 +68,7 @@ if (strlen($_SESSION['landID']) == 0) {
                                         <div class="col-xl-6 col-xxl-5 d-flex">
                                             <div class="w-100">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <!-- <div class="col-sm-6">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -117,7 +117,7 @@ if (strlen($_SESSION['landID']) == 0) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

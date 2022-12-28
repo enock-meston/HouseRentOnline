@@ -4,7 +4,7 @@ $error = "";
 $msg = "";
 include('../includes/config.php');
 
-error_reporting(0);
+// error_reporting(0);
 if (strlen($_SESSION['aID']) == 0) {
     header('location:index.php');
 } else {
@@ -101,31 +101,6 @@ if (strlen($_SESSION['aID']) == 0) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col mt-0">
-                                                                        <h5 class="card-title">Earnings</h5>
-                                                                    </div>
-
-                                                                    <div class="col-auto">
-                                                                        <div class="stat text-primary">
-                                                                            <i class="align-middle"
-                                                                                data-feather="dollar-sign"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <h1 class="mt-1 mb-3">$21.300</h1>
-                                                                <div class="mb-0">
-                                                                    <span class="text-success"> <i
-                                                                            class="mdi mdi-arrow-bottom-right"></i>
-                                                                        6.65% </span>
-                                                                    <span class="text-muted">Since last week</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +115,7 @@ if (strlen($_SESSION['aID']) == 0) {
                 </div>
             </main>
 
-            <?php include 'includes/footer.php'; ?>
+            <?php include '../includes/footer.php'; ?>
         </div>
 
 

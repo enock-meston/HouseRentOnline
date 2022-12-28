@@ -29,11 +29,11 @@
                     </li>
 
 
-                    <li class="sidebar-item">
+                    <!-- <li class="sidebar-item">
                         <a class="sidebar-link" href="contract.php">
                             <i class="align-middle" data-feather="book"></i> <span class="align-middle">Contracts</span>
                         </a>
-                    </li>
+                    </li> -->
 
             </div>
         </nav>
